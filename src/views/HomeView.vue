@@ -1,9 +1,11 @@
 <template>
   <div>
-    <CourseCard 
-      v-for="curso,index in $store.state.cursos" :key="`curso-${index}`"
-      :curso=curso
-    />
+    <div class="columns">
+      <CourseCard
+        v-for="curso,index in $store.state.cursos" :key="`curso-${index}`"
+        :curso=curso
+      />
+    </div>
   </div>
 </template>
 

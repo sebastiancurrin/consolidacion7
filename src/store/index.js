@@ -56,6 +56,31 @@ export default new Vuex.Store({
 
   },
   getters: {
+    alumnosPermitidos(state){
+      return state.cursos.reduce( (accu,it)=> accu+it.cupos , 0)
+
+    },
+    alumnosInscritos(state){
+      return state.cursos.reduce( (accu,it)=> accu+it.inscritos , 0)
+
+    },
+    cuposRestantes(state,getters){
+      return getters.alumnosPermitidos-getters.alumnosInscritos
+    },
+    cantCursosTerminados(state){
+      return state.cursos.filter(it => it.completado).length
+    },
+    cantCursosActivos(state,getters){
+      return getters.cantTotalCursos-getters.cantCursosTerminados
+    },
+    cantTotalCursos(state){
+      return state.cursos.length
+    },
+    curso(state){
+      return function(id){
+         return state.cursos.find(el => el.id == id)
+      }
+    }
   },
   mutations: {
   },
