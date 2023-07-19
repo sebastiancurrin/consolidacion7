@@ -25,37 +25,38 @@
         <div class="field">
             <label class="label">Cupos del curso</label>
             <div class="control">
-                <input class="input" type="text" >
+                <input class="input" type="text" v-model="nuevoCurso.cupos" >
             </div>
         </div>
         <div class="field">
             <label class="label">Inscritos en el curso</label>
             <div class="control">
-                <input class="input" type="text" >
+                <input class="input" type="text" v-model="nuevoCurso.inscritos">
             </div>
         </div>
         <div class="field">
             <label class="label">Duración del curso</label>
             <div class="control">
-                <input class="input" type="text" >
+                <input class="input" type="text" v-model="nuevoCurso.duracion">
             </div>
         </div>
         <div class="field">
             <label class="label">Fecha de registro</label>
             <div class="control">
-                <input class="input" type="text" >
+                <input class="input" type="date" v-model="nuevoCurso.fecha_registro" >
             </div>
         </div>
         <div class="field">
             <label class="label">Costo del curso</label>
             <div class="control">
-                <input class="input" type="text" >
+                <input class="input" type="number" v-model="nuevoCurso.costo" >
             </div>
         </div>
         <div class="field">
             <label class="label">Descripcion</label>
             <div class="control">
-                <textarea class="textarea" ></textarea>
+                <textarea class="textarea" v-model="nuevoCurso.descripcion">
+                </textarea>
             </div>
         </div>
 

@@ -57,11 +57,11 @@ export default new Vuex.Store({
   },
   getters: {
     alumnosPermitidos(state){
-      return state.cursos.reduce( (accu,it)=> accu+it.cupos , 0)
+      return state.cursos.reduce( (accu,it)=> accu+Number(it.cupos) , 0)
 
     },
     alumnosInscritos(state){
-      return state.cursos.reduce( (accu,it)=> accu+it.inscritos , 0)
+      return state.cursos.reduce( (accu,it)=> accu+Number(it.inscritos) , 0)
 
     },
     cuposRestantes(state,getters){
@@ -84,6 +84,9 @@ export default new Vuex.Store({
   },
   mutations: {
     addCourse(state, nuevoCurso){
+      let ids = state.cursos.map(el=>el.id)
+      let maxId = Math.max(...ids)
+      nuevoCurso.id = maxId+1
       state.cursos.push(nuevoCurso)
     },
     editCourse(state,editCourse){
