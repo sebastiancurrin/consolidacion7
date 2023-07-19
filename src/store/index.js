@@ -83,6 +83,14 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    addCourse(state, nuevoCurso){
+      state.cursos.push(nuevoCurso)
+    },
+    editCourse(state,editCourse){
+      let index = state.cursos.findIndex(el => el.id == editCourse.id)
+      state.cursos[index] = editCourse
+      
+    }
   },
   actions: {
   },

@@ -14,62 +14,63 @@
             <label class="label">Nombre</label>
             <div class="control">
                 <input class="input" type="text" 
-                    v-model="nombre">
+                    v-model="editedCourse.nombre"/>
             </div>
         </div>
         <div class="field">
             <label class="label">URL de la imagen</label>
             <div class="control">
                 <input class="input" type="text" 
-                    :value="$store.getters.curso(courseId).img">
+                   v-model="editedCourse.img" >
             </div>
         </div>
         <div class="field">
             <label class="label">Cupos del curso</label>
             <div class="control">
                 <input class="input" type="text" 
-                 :value="$store.getters.curso(courseId).cupos">
+                  v-model="editedCourse.cupos">
             </div>
         </div>
         <div class="field">
             <label class="label">Inscritos en el curso</label>
             <div class="control">
                 <input class="input" type="text" 
-                  :value="$store.getters.curso(courseId).inscritos">
+                  v-model="editedCourse.inscritos" >
             </div>
         </div>
         <div class="field">
             <label class="label">Duración del curso</label>
             <div class="control">
                 <input class="input" type="text"
-                  :value="$store.getters.curso(courseId).duracion">
+                  v-model="editedCourse.duracion">
             </div>
         </div>
         <div class="field">
             <label class="label">Fecha de registro</label>
             <div class="control">
                 <input class="input" type="text" 
-                  :value="$store.getters.curso(courseId).fecha_registro">
+                  v-model="editedCourse.fecha_registro">
             </div>
         </div>
         <div class="field">
             <label class="label">Costo del curso</label>
             <div class="control">
                 <input class="input" type="text" 
-                  :value="$store.getters.curso(courseId).costo">
+                  v-model="editedCourse.costo">
             </div>
         </div>
         <div class="field">
             <label class="label">Descripcion</label>
             <div class="control">
                 <textarea class="textarea" 
-                    :value="$store.getters.curso(courseId).descripcion"></textarea>
+                    v-model="editedCourse.descripcion"></textarea>
             </div>
         </div>
 
     </section>
     <footer class="modal-card-foot">
-      <button class="button is-success">Guardar cambios</button>
+      <button @click="saveChanges"
+                class="button is-success">Guardar cambios</button>
       <button 
           @click="closeModal" 
            class="button">Cancelar</button>
@@ -84,22 +85,58 @@
 
 <script>
 export default {
+    props:['isActive','courseId'],
     data(){
         return{
-            nombre:$store.getters.curso(courseId).nombre
+            editedCourse:{
+                id: '',
+                img: '',
+                nombre: '',
+                costo:'',
+                duracion:'',
+                cupos:'',
+                inscritos:'',
+                completado:'',
+                fecha_registro:'',
+                descripcion:''
+            }
+          
         }
     },
-    props:['isActive','courseId'],
 
     methods:{
         closeModal(){
+          
             this.$emit('close-modal')    
         
         },
         saveChanges(){
-
-        }
+            this.$store.commit('editCourse',this.editedCourse)
+           
+            this.$emit('close-modal')    
+        },
+        editValue(value){
+            alert(value)
+        }  
     },
+    watch:{
+        courseId(){
+            this.editedCourse.id  = this.$store.getters.curso(this.courseId).id
+            this.editedCourse.img = this.$store.getters.curso(this.courseId).img
+            this.editedCourse.nombre = this.$store.getters.curso(this.courseId).nombre
+            this.editedCourse.costo = this.$store.getters.curso(this.courseId).costo
+            this.editedCourse.duracion = this.$store.getters.curso(this.courseId).duracion
+            this.editedCourse.cupos = this.$store.getters.curso(this.courseId).cupos
+            this.editedCourse.inscritos = this.$store.getters.curso(this.courseId).inscritos
+            this.editedCourse.completado = this.$store.getters.curso(this.courseId).completado
+            this.editedCourse.fecha_registro = this.$store.getters.curso(this.courseId).fecha_registro
+            this.editedCourse.descripcion = this.$store.getters.curso(this.courseId).descripcion
+                
+        },
+      
+        
+    }
+  
 
 }
 </script>

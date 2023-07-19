@@ -13,13 +13,13 @@
         <div class="field">
             <label class="label">Nombre</label>
             <div class="control">
-                <input class="input" type="text" >
+                <input class="input" type="text" v-model="nuevoCurso.nombre">
             </div>
         </div>
         <div class="field">
             <label class="label">URL de la imagen</label>
             <div class="control">
-                <input class="input" type="text" >
+                <input class="input" type="text" v-model="nuevoCurso.img">
             </div>
         </div>
         <div class="field">
@@ -61,7 +61,8 @@
 
     </section>
     <footer class="modal-card-foot">
-      <button class="button is-success">Agregar Curso</button>
+      <button @click="addCourse" 
+        class="button is-success">Agregar Curso</button>
       <button 
           @click="closeModal" 
            class="button">Cancelar</button>
@@ -78,6 +79,19 @@
 export default {
     data(){
         return{
+            nuevoCurso: {
+                id: '',
+                img: '',
+                nombre: '',
+                costo:'',
+                duracion:'',
+                cupos:'',
+                inscritos:'',
+                completado:'',
+                fecha_registro:'',
+                descripcion:''
+
+            }
         }
     },
     props:['isActive'],
@@ -86,6 +100,12 @@ export default {
         closeModal(){
             this.$emit('close-modal')    
         
+        },
+        addCourse(e){
+            e.preventDefault()
+
+            this.$store.commit('addCourse',this.nuevoCurso)
+            this.$emit('close-modal')   
         }
     },
 

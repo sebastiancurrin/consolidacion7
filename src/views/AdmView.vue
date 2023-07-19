@@ -81,6 +81,7 @@ export default {
         },
 
         closeEditModal(){
+            this.courseId=''
             this.showEditModal=""
         },
         closeAddModal(){
