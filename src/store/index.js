@@ -89,6 +89,13 @@ export default new Vuex.Store({
       nuevoCurso.id = maxId+1
       state.cursos.push(nuevoCurso)
     },
+    deleteCourse(state, id){
+      let index = state.cursos.findIndex(el => el.id == id)
+      state.cursos.splice(index,1) 
+      
+
+    },
+    
     editCourse(state,editCourse){
       let index = state.cursos.findIndex(el => el.id == editCourse.id)
       state.cursos[index] = editCourse

@@ -32,8 +32,11 @@
                 <td>{{curso.costo}}</td>
                 <td>{{curso.completado}}</td>
                 <td>{{curso.fecha_registro}}</td>
-                <td><button @click="editar($event,curso.id)">editar</button></td>
-                <td><button>eliminar</button></td>
+                <td><button class="button" 
+                        @click="editar($event,curso.id)">editar</button></td>
+                <td><button class="button"
+                            @click="eliminar($event,curso.id)"    >
+                    eliminar</button></td>
             </tr>
         </table>
 
@@ -51,6 +54,11 @@
               <EditModal @close-modal="closeEditModal" 
                         :isActive="showEditModal"
                         :courseId="courseId" />
+              
+              <DeleteModal @close-modal="closeDeleteModal" 
+                        :isActive="showDeleteModal"
+                        :courseId="courseId" />
+                        
         
         
 
@@ -62,12 +70,14 @@
 <script>
 import EditModal from '@/components/EditModal.vue'
 import AddCourseModal from '@/components/AddCourseModal.vue'
+import DeleteModal from '@/components/DeleteModal.vue'
 
 export default {
     data(){
         return{
            showEditModal:'',
            showAddModal:'',
+           showDeleteModal:'',
            courseId:''
         
         }
@@ -87,15 +97,26 @@ export default {
         closeAddModal(){
             this.showAddModal=""
         },
+        closeDeleteModal(){
+            this.courseId=''
+            this.showDeleteModal=""
+        },
         
         addCourse(e){
             e.preventDefault()
             this.showAddModal='is-active'
+        },
+        eliminar(e, id){
+            e.preventDefault()
+            this.showDeleteModal='is-active'
+            this.courseId = id
+
         }
     },
     components:{
         EditModal,
         AddCourseModal,
+        DeleteModal
     }
 }
 </script>
